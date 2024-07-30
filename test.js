@@ -1,24 +1,26 @@
-const { sum, fromEuroToDollar, fromDollarToYen, fromYenToPound } = require('./app.js');
+const { sum, fromEuroToDollar, fromDollarToYen, fromYenToPound, oneEuroIs } = require('./app.js');
 
 test('adds 14 + 9 to equal 23', () => {
     let total = sum(14, 9);
     expect(total).toBe(23);
 });
 
-test("One euro should be 1.07 dollars", function() {
+test("1 euro debe ser 1.07 dólares", function() {
     const dollars = fromEuroToDollar(3.5);
-    const expected = 3.5 * 1.07;
+    const expected = 3.5 * oneEuroIs.USD;
     expect(dollars).toBe(expected);
 });
-
-test("20 dolares deben ser 3130", function() {
+ // Convertir dólares a euros: 20 / 1.07
+test("20 dólares deben ser 3130 yenes", function() {
     const yen = fromDollarToYen(20);
-    const expected = 20 * 156.5;
+    const euros = 20 / oneEuroIs.USD;
+    const expected = euros * oneEuroIs.JPY;
     expect(yen).toBe(expected);
 });
-
-test("20 yens deben ser 43.5 pound", function() {
+ // Convertir yenes a euros: 20 / 156.5
+test("20 yenes deben ser 0.11131 libras", function() {
     const pounds = fromYenToPound(20);
-    const expected = 20 * 0.87;
+    const euros = 20 / oneEuroIs.JPY;
+    const expected = euros * oneEuroIs.GBP;
     expect(pounds).toBe(expected);
 });
